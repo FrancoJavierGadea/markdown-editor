@@ -7,6 +7,7 @@ import { Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
 import file from "./assets/markdown.md";
+import ShowCode from "./components/ShowCode";
 
 function App() {
 
@@ -24,8 +25,12 @@ function App() {
     <div className="App bg-dark p-2" style={{minHeight: '100vh'}}>
 
       <Container>
+        {
 
-        <RenderMarkdown text={text} style={{maxHeight: '700px', overflow: 'auto'}}></RenderMarkdown>
+          //<RenderMarkdown text={text} style={{maxHeight: '700px', overflow: 'auto'}}></RenderMarkdown>
+
+          <ShowCode></ShowCode>
+        }
 
       </Container>
 
