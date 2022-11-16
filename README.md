@@ -58,7 +58,7 @@ const md = `
 show [react-markdown](https://github.com/remarkjs/react-markdown)
 `;
 
-function RenderMarkdown({text, style}){
+function RenderMarkdown(){
 
     const [text, setText] = useState(md);
 
@@ -106,6 +106,139 @@ Añade y expande la sintaxis de markdown dando soporte para:
 
 
 
+## Customizar el `html` generado
+
+`react-markdown` nos permite personalizar que **Componentes** usar para crear el `html` a traves de la propiedad `components`, la cual recibe un objeto en el que indicamos que **Componente** usar para cada etiqueta `html` 
+
+```html
+<ReactMarkdown children={text} components={{ h1: CustomH1, code: CustomCode }} />
+```
+
+¿ Esto que significa ?
+
+#### Ejemplo 1
+
+Por defecto, cada vez que `react-markdown` se encuentra con un `# titulo` genera un `<h1>Titulo</h1>`.
+
+Para cambiar esto, definimos un `Function Component` y utilizamos las `props` `children` y `className`
+
+```js
+function CustomH1({className, children}){
+
+    return (
+        <div className={className} style={{color: 'red'}}>{children}</div>
+    );
+}
+```
+y se la pasamos a `<ReactMarkdown />` en la propiedad `components` en `h1`
+
+```js
+import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+
+const md = `# titulo`;
+
+function App(){
+
+    const [text, setText] = useState(md);
+
+    return (<div className="RenderMarkdown">
+
+        <ReactMarkdown children={text} components={{ h1: CustomH1 }} />
+    </div>)
+}
+
+export default App;
+```
+
+ahora todos los `h1` --> `# titulo` seran un `div` con el texto en color rojo
+
+---
+
+#### Ejemplo 2: Agregando Syntax Highlight
+
+Por defecto cada vez que `react-markdown` se encuentra con:
+
+```markdown
+    `inline code`
+
+    ```js
+        console.log('block code');
+    ```
+```
+
+Nos genera:
+
+```html
+<p><code>inline code</code></p>
+
+<pre>
+    <code class="language-js">console.log('block code');</code>
+</pre>
+```
+
+La idea es agregar que use `React syntax highlighter` para los **bloques de codigo** y siga con lo por defecto para los **inline**
+
+Esto lo hacemos creando un `Function Component` que dependiendo de si es `inline` o no, utilize `<SyntaxHighlighter />` o `<p><code></code></p>`
+
+```js
+import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
+import {dark, vscDarkPlus} from 'react-syntax-highlighter/dist/esm/styles/prism'
+
+function CustomCode({inline, className, children}){
+
+    //? Expresion regular que comprueba que el className coincida con 'language-**' y extrae el leguaje
+    const match = /language-(\w+)/.exec(className || '');
+
+    const lang = match ? match[1] : undefined;
+
+    //? Remplazamos todos los \n al final de linea que haya
+    const code = String(children).replace(/\n$/, '');
+
+    return (<>
+    
+        { !inline && match ?  
+        
+            <SyntaxHighlighter language={lang} children={code} style={vscDarkPlus} PreTag="div"/>
+
+            :
+
+            <code className={className}>{children}</code>
+        }
+    </>);
+}
+
+export default CustomCode;
+```
+> Mas sobre *Expresiones regulares* en: [https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_Expressions](https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_Expressions)
+
+
+Finalmente le indicamos a `react-markdown` que use `CustomCode` con la propiedad `components`
+
+```js
+import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+
+const md = `
+\`inline code\`
+
+\`\`\`js
+console.log("block code");
+\`\`\`
+`;
+
+function App(){
+
+    const [text, setText] = useState(md);
+
+    return (<div className="RenderMarkdown">
+
+        <ReactMarkdown children={text} components={{ code: CustomCode }}></ReactMarkdown>
+    </div>)
+}
+
+export default App;
+```
 
 
 #### Docs

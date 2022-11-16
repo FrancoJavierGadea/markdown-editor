@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import CustomCode from "./CustomCode";
+import CustomH1 from "./CustomH1";
 
 
 function RenderMarkdown({text, style}){
@@ -48,7 +50,7 @@ function RenderMarkdown({text, style}){
 
                 <div className={mode !== 'markdown' ? 'd-none' : ''} ref={markdownContainerRef}>
 
-                    <ReactMarkdown children={text} remarkPlugins={[remarkGfm]}></ReactMarkdown>
+                    <ReactMarkdown children={text} remarkPlugins={[remarkGfm]} components={{code: CustomCode, h1: CustomH1}}></ReactMarkdown>
 
                 </div>
 
