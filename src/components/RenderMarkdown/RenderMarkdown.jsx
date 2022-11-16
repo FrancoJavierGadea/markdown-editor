@@ -4,6 +4,11 @@ import remarkGfm from "remark-gfm";
 import CustomCode from "./CustomCode";
 import CustomH1 from "./CustomH1";
 
+//? Markdown themes
+//import "github-markdown-css/github-markdown-dark.css";
+//import "github-markdown-css/github-markdown-light.css";
+import "github-markdown-css/github-markdown.css";
+
 
 function RenderMarkdown({text, style}){
 
@@ -33,7 +38,7 @@ function RenderMarkdown({text, style}){
 
             <div className="position-absolute top-0 end-0 px-4 d-flex justify-content-end">
             
-                <label style={{fontSize: '28px'}}>
+                <label className="text-light"  style={{fontSize: '28px'}}>
 
                     {mode === 'markdown' ? <i className="bi bi-markdown"></i> : ''}
 
@@ -46,17 +51,17 @@ function RenderMarkdown({text, style}){
             
             </div>
 
-            <div className="bg-light my-2 p-2 rounded" style={{display: 'flow-root', minHeight: '50px' , ...style}}>
+            <div className="markdown-body my-2 p-2 rounded" style={{display: 'flow-root', minHeight: '50px' , ...style}}>
 
                 <div className={mode !== 'markdown' ? 'd-none' : ''} ref={markdownContainerRef}>
 
-                    <ReactMarkdown children={text} remarkPlugins={[remarkGfm]} components={{code: CustomCode, h1: CustomH1}}></ReactMarkdown>
+                    <ReactMarkdown children={text} remarkPlugins={[remarkGfm]} components={{code: CustomCode}}></ReactMarkdown>
 
                 </div>
 
                 { mode === 'raw' ? <pre>{text}</pre> : ''}
 
-                { mode === 'html' ? <pre className="m-0 overflow-visible"><code>{html}</code></pre> : ''}
+                { mode === 'html' ? <pre className="m-0 overflow-visible" style={{width: 'fit-content'}}><code>{html}</code></pre> : ''}
             </div>
         </div>
    

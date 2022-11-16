@@ -49,7 +49,7 @@ URL: https://github.com/remarkjs/remark-gfm
 
 `code text`
 
-```js
+```jsx
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
