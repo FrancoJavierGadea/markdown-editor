@@ -3,10 +3,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import RenderMarkdown from "./components/RenderMarkdown/RenderMarkdown";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
 import ShowCode from "./components/ShowCode";
+import EditorMarkdown from "./components/EditorMarkdown/EditorMarkdown";
 
 //? Archivos md de prueba
 import markdown from "./assets/markdown.md";
@@ -19,7 +20,7 @@ function App() {
 
   useEffect(() => {
         
-    fetch(codes)
+    fetch(markdown)
     .then(res => res.text())
     .then(value => setText(value))
 
@@ -28,13 +29,18 @@ function App() {
   return (
     <div className="App bg-dark p-2" style={{minHeight: '100vh'}}>
 
-      <Container>
-        {
+      <Container fluid={true}>
 
-          <RenderMarkdown text={text} style={{maxHeight: '700px', overflow: 'auto'}}></RenderMarkdown>
+        <Row>
+          <Col xs={6}>
+            <EditorMarkdown initialValue={text} style={{height: '700px'}} value={text} onChange={(value) => setText(value)}></EditorMarkdown>
+          </Col>
 
-          //<ShowCode></ShowCode>
-        }
+          <Col xs={6}>
+            <RenderMarkdown text={text} style={{maxHeight: '700px', overflow: 'auto'}}></RenderMarkdown>
+          </Col>
+        </Row>
+
       </Container>
 
     </div>
