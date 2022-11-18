@@ -8,6 +8,15 @@ import CustomH1 from "./CustomH1";
 //import "github-markdown-css/github-markdown-dark.css";
 //import "github-markdown-css/github-markdown-light.css";
 import "github-markdown-css/github-markdown.css";
+import styled from "styled-components";
+
+
+const StyledLabel = styled.label`
+
+    i:hover {
+        color: #0d6efd;
+    }
+`;
 
 
 function RenderMarkdown({text, style}){
@@ -38,7 +47,7 @@ function RenderMarkdown({text, style}){
 
             <div className="position-absolute top-0 end-0 px-4 d-flex justify-content-end">
             
-                <label className="text-light"  style={{fontSize: '28px'}}>
+                <StyledLabel className="text-light"  style={{fontSize: '28px'}}>
 
                     {mode === 'markdown' ? <i className="bi bi-markdown"></i> : ''}
 
@@ -47,7 +56,7 @@ function RenderMarkdown({text, style}){
                     {mode === 'raw' ? <i className="bi bi-filetype-raw"></i> : ''}
 
                     <input type="button" className="d-none" value="" onClick={changeModes} />
-                </label>
+                </StyledLabel>
             
             </div>
 

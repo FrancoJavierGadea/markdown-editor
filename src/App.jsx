@@ -13,6 +13,7 @@ import EditorMarkdown from "./components/EditorMarkdown/EditorMarkdown";
 import markdown from "./assets/markdown.md";
 import code from "./assets/code.md";
 import codes from "./assets/codes.md";
+import FileLoader from "./components/FileLoader";
 
 function App() {
 
@@ -33,7 +34,7 @@ function App() {
 
         <Row>
           <Col xs={6}>
-            <EditorMarkdown initialValue={text} style={{height: '700px'}} value={text} onChange={(value) => setText(value)}></EditorMarkdown>
+            <EditorMarkdown style={{height: '700px'}} defaultValue={text} onChange={(value) => setText(value)}></EditorMarkdown>
           </Col>
 
           <Col xs={6}>

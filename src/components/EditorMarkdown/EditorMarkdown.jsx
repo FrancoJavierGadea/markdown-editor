@@ -1,8 +1,12 @@
 
+import { useRef } from "react";
 import { Form } from "react-bootstrap";
+import FileLoader from "../FileLoader";
 
 
-function EditorMarkdown({value, onChange, style}) {
+function EditorMarkdown({defaultValue, onChange, style}) {
+
+    const editor = useRef(null);
 
     const change = ({target: {value}}) => {
 
@@ -31,10 +35,28 @@ function EditorMarkdown({value, onChange, style}) {
         }
     }
 
+
+    const load = (value) => {
+
+        editor.current.value = value;
+
+        onChange(value);
+    }
+
     return (<div className="EditorMarkdown py-2">
+    
+        <div className="position-relative">
 
-        <Form.Control as="textarea" style={{overflow: 'visible', resize: 'none', cursor: 'text', ...style}} defaultValue={value} onKeyUp={change} onKeyDown={tabulation} />
+            <div className="position-absolute top-0 end-0 px-4 d-flex justify-content-end">
+                <FileLoader onChange={load}></FileLoader>
+            </div>
 
+            <div>
+                <Form.Control as="textarea" style={{overflow: 'visible', resize: 'none', cursor: 'text', ...style}} defaultValue={defaultValue} onKeyUp={change} onKeyDown={tabulation} ref={editor} />
+            </div>
+
+        </div>
+    
     </div>);
 }
 
