@@ -13,7 +13,7 @@ import EditorMarkdown from "./components/EditorMarkdown/EditorMarkdown";
 import markdown from "./assets/markdown.md";
 import code from "./assets/code.md";
 import codes from "./assets/codes.md";
-import FileLoader from "./components/FileLoader";
+
 
 function App() {
 

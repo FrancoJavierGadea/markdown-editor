@@ -1,7 +1,7 @@
 
 import { useRef } from "react";
 import { Form } from "react-bootstrap";
-import FileLoader from "../FileLoader";
+import FileLoader from "./FileLoader";
 
 
 function EditorMarkdown({defaultValue, onChange, style}) {
