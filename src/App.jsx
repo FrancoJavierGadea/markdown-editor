@@ -13,6 +13,7 @@ import EditorMarkdown from "./components/EditorMarkdown/EditorMarkdown";
 import markdown from "./assets/markdown.md";
 import code from "./assets/code.md";
 import codes from "./assets/codes.md";
+import EditorCode from "./components/EditorCode";
 
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
   return (
     <div className="App bg-dark p-2" style={{minHeight: '100vh'}}>
 
-      <Container fluid={true}>
+      {/* <Container fluid={true}>
 
         <Row>
           <Col xs={6}>
@@ -42,7 +43,9 @@ function App() {
           </Col>
         </Row>
 
-      </Container>
+      </Container> */}
+
+      <EditorCode></EditorCode>
 
     </div>
   );
