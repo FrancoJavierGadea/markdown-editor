@@ -31,21 +31,21 @@ function App() {
   return (
     <div className="App bg-dark p-2" style={{minHeight: '100vh'}}>
 
-      {/* <Container fluid={true}>
+      <Container fluid={true}>
 
         <Row>
-          <Col xs={6}>
-            <EditorMarkdown style={{height: '700px'}} defaultValue={text} onChange={(value) => setText(value)}></EditorMarkdown>
+          <Col className="ps-0 pe-1" xs={6}>
+            <EditorMarkdown height="95vh" defaultValue={text} onChange={(value) => setText(value)}></EditorMarkdown>
           </Col>
 
-          <Col xs={6}>
-            <RenderMarkdown text={text} style={{maxHeight: '700px', overflow: 'auto'}}></RenderMarkdown>
+          <Col className="ps-1 pe-0" xs={6}>
+            <RenderMarkdown text={text} style={{maxHeight: '95vh', overflow: 'auto'}}></RenderMarkdown>
           </Col>
         </Row>
 
-      </Container> */}
+      </Container>
 
-      <EditorCode></EditorCode>
+      {/* <EditorCode></EditorCode> */}
 
     </div>
   );

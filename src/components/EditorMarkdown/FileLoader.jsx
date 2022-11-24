@@ -26,7 +26,7 @@ function FileLoader({onChange}){
         reader.readAsText(file);
     }
 
-    return (<StyledLabel className="text-dark"  style={{fontSize: '26px'}} title="Cargar Archivo">
+    return (<StyledLabel className="text-light"  style={{fontSize: '26px'}} title="Cargar Archivo">
 
         <i className="bi bi-upload"></i>
 

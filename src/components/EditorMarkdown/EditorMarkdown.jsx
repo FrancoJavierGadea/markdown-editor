@@ -1,44 +1,49 @@
 
+import Editor from "@monaco-editor/react";
 import { useRef } from "react";
 import { Form } from "react-bootstrap";
 import FileLoader from "./FileLoader";
 
 
-function EditorMarkdown({defaultValue, onChange, style}) {
+function EditorMarkdown({defaultValue, onChange, height}) {
 
-    const editor = useRef(null);
+    const options = {
+        padding: {
+            top: "20px",
+            bottom: "10px"
+        },
 
-    const change = ({target: {value}}) => {
+        scrollbar: { 
+            vertical: 'auto' 
+        },
 
-        console.log('change');
+        scrollBeyondLastLine: false,
 
-        onChange(value);
-    }
-
-    const tabulation = ({key, nativeEvent, target}) => {
-
-        //* docs: https://stackoverflow.com/questions/6637341/use-tab-to-indent-in-textarea
-
-        if(key === 'Tab'){
-
-            nativeEvent.preventDefault();
-            
-            //? caret position
-            let start = target.selectionStart;
-            let end = target.selectionEnd;
-            
-            //? Set textarea value to: text before caret + tab + text after caret
-            target.value = target.value.substring(0, start) + "\t" + target.value.substring(end);
-
-            //? Put caret at right position again
-            target.selectionEnd = start + 1;
+        minimap: { 
+            enabled: false 
         }
     }
 
+    const editorRef = useRef(null);
 
+    
+    const change = () => {
+        
+        console.log('change');
+        
+        onChange(editorRef.current.getValue());
+    }
+    
+    const onMount = (editor, monaco) => {
+
+        editor.onKeyUp(change);
+
+        editorRef.current = editor;
+    }
+    
     const load = (value) => {
 
-        editor.current.value = value;
+        editorRef.current.getModel().setValue(value);
 
         onChange(value);
     }
@@ -47,12 +52,12 @@ function EditorMarkdown({defaultValue, onChange, style}) {
     
         <div className="position-relative">
 
-            <div className="position-absolute top-0 end-0 px-4 d-flex justify-content-end">
+            <div className="position-absolute top-0 end-0 px-4 d-flex justify-content-end" style={{zIndex: 1000}}>
                 <FileLoader onChange={load}></FileLoader>
             </div>
 
-            <div>
-                <Form.Control as="textarea" style={{overflow: 'visible', resize: 'none', cursor: 'text', ...style}} defaultValue={defaultValue} onKeyUp={change} onKeyDown={tabulation} ref={editor} />
+            <div className="overflow-hidden rounded">
+                <Editor height={height} theme="vs-dark" language="markdown" defaultValue={defaultValue} onMount={onMount} options={options} />
             </div>
 
         </div>
