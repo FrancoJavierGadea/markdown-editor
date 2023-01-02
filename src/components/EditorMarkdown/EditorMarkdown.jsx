@@ -48,7 +48,7 @@ function EditorMarkdown({defaultValue, onChange, height}) {
         onChange(value);
     }
 
-    return (<div className="EditorMarkdown py-2">
+    return (<div className="EditorMarkdown">
     
         <div className="position-relative">
 

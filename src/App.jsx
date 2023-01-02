@@ -2,12 +2,12 @@
 //? Bootstrap y Bootstrap icons
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import RenderMarkdown from "./components/RenderMarkdown/RenderMarkdown";
-import { Col, Container, Row } from "react-bootstrap";
+
 import { useEffect, useState } from "react";
 
-import ShowCode from "./components/ShowCode";
+import Split from "react-split";
 import EditorMarkdown from "./components/EditorMarkdown/EditorMarkdown";
+import RenderMarkdown from "./components/RenderMarkdown/RenderMarkdown";
 
 //? Archivos md de prueba
 import markdown from "./assets/markdown.md";
@@ -29,23 +29,15 @@ function App() {
   }, []);
 
   return (
-    <div className="App bg-dark p-2" style={{minHeight: '100vh'}}>
+    <div className="App bg-dark" style={{minHeight: '100vh'}}>
 
-      <Container fluid={true}>
+      <Split className="split" sizes={[50, 50]} minSize={300} direction="horizontal" gutterSize={8} gutterAlign="center">
 
-        <Row>
-          <Col className="ps-0 pe-1" xs={6}>
-            <EditorMarkdown height="95vh" defaultValue={text} onChange={(value) => setText(value)}></EditorMarkdown>
-          </Col>
+        <EditorMarkdown height="100vh" defaultValue={text} onChange={(value) => setText(value)}></EditorMarkdown>
 
-          <Col className="ps-1 pe-0" xs={6}>
-            <RenderMarkdown text={text} style={{maxHeight: '95vh', overflow: 'auto'}}></RenderMarkdown>
-          </Col>
-        </Row>
+        <RenderMarkdown text={text} style={{maxHeight: '100vh', overflow: 'auto'}}></RenderMarkdown>
 
-      </Container>
-
-      {/* <EditorCode></EditorCode> */}
+      </Split>
 
     </div>
   );

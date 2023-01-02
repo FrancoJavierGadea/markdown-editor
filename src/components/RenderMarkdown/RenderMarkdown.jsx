@@ -60,7 +60,7 @@ function RenderMarkdown({text, style}){
             
             </div>
 
-            <div className="markdown-body my-2 p-2 rounded" style={{display: 'flow-root', minHeight: '50px' , ...style}}>
+            <div className="markdown-body px-2 rounded" style={{display: 'flow-root', minHeight: '100vh' , ...style}}>
 
                 <div className={mode !== 'markdown' ? 'd-none' : ''} ref={markdownContainerRef}>
 
